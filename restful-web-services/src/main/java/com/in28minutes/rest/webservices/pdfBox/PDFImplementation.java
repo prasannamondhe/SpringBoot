@@ -18,7 +18,7 @@ public class PDFImplementation {
     FormService formService;
 
     @PostMapping(path = "/createTemplate")
-    public void createEmail(@RequestBody FormDetails formDetails) throws IOException {
-        formService.createTemplatePDF(formDetails);
+    public void fillPDFForm(@RequestBody FormFields formFields) throws IOException {
+        formService.createTemplatePDF(formFields);
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 /**
  * Created by Prasanna.Mondhe on 1/14/2019.
  */
-public class FormDetails {
+public class FormFields {
 
     @Id
     Integer id;
@@ -16,7 +16,7 @@ public class FormDetails {
     String email;
     String state;
 
-    public FormDetails(Integer id, String name, String companyName, String address, String city, String email, String state) {
+    public FormFields(Integer id, String name, String companyName, String address, String city, String email, String state) {
         this.id = id;
         this.name = name;
         this.companyName = companyName;
@@ -26,7 +26,7 @@ public class FormDetails {
         this.state = state;
     }
 
-    public FormDetails(){
+    public FormFields() {
 
     }
 

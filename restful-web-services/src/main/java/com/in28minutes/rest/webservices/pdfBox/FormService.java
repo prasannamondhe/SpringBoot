@@ -16,7 +16,7 @@ import java.util.List;
 @Component
 public class FormService {
 
-    public FormDetails createTemplatePDF(FormDetails formDetails) throws IOException, URISyntaxException {
+    public FormFields createTemplatePDF(FormFields formFields) throws IOException, URISyntaxException {
 
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
         File file = new File(classLoader.getResource("Registration_Form.pdf").getFile());
@@ -29,27 +29,27 @@ public class FormService {
                 System.out.println("Partial field name is  " + field.getPartialName());
                 switch (field.getPartialName()) {
                     case "Name":
-                        field.setValue(formDetails.getName());
+                        field.setValue(formFields.getName());
                         field.setReadOnly(true);
                         break;
                     case "InstitutionCompany Name":
-                        field.setValue(formDetails.getCompanyName());
+                        field.setValue(formFields.getCompanyName());
                         field.setReadOnly(true);
                         break;
                     case "undefined_3":
-                        field.setValue(formDetails.getAddress());
+                        field.setValue(formFields.getAddress());
                         field.setReadOnly(true);
                         break;
                     case "City":
-                        field.setValue(formDetails.getCity());
+                        field.setValue(formFields.getCity());
                         field.setReadOnly(true);
                         break;
                     case "email":
-                        field.setValue(formDetails.getEmail());
+                        field.setValue(formFields.getEmail());
                         field.setReadOnly(true);
                         break;
                     case "StateProvince":
-                        field.setValue(formDetails.getState());
+                        field.setValue(formFields.getState());
                         field.setReadOnly(true);
                         break;
                 }
@@ -58,7 +58,7 @@ public class FormService {
 
         document.save(new File("src\\main\\resources", "Result.pdf"));
         document.close();
-        return formDetails;
+        return formFields;
 
     }
 

@@ -4,9 +4,9 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.springframework.stereotype.Component;
-
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -16,12 +16,10 @@ import java.util.List;
 @Component
 public class FormService {
 
-    public static final String RESULT_FOLDER = "F:\\SpringBoot\\Result";
-    public static final String SOURCE_FOLDER = "F:\\SpringBoot\\source";
+    public FormDetails createTemplatePDF(FormDetails formDetails) throws IOException, URISyntaxException {
 
-    public FormFields createTemplatePDF(FormFields formFields) throws IOException {
-
-        File file = new File(SOURCE_FOLDER, "Registration_Form.pdf");
+        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+        File file = new File(classLoader.getResource("Registration_Form.pdf").getFile());
         PDDocument document = PDDocument.load(file);
         PDAcroForm acroForm = document.getDocumentCatalog().getAcroForm();
 
@@ -31,36 +29,37 @@ public class FormService {
                 System.out.println("Partial field name is  " + field.getPartialName());
                 switch (field.getPartialName()) {
                     case "Name":
-                        field.setValue(formFields.getName());
+                        field.setValue(formDetails.getName());
                         field.setReadOnly(true);
                         break;
                     case "InstitutionCompany Name":
-                        field.setValue(formFields.getCompanyName());
+                        field.setValue(formDetails.getCompanyName());
                         field.setReadOnly(true);
                         break;
                     case "undefined_3":
-                        field.setValue(formFields.getAddress());
+                        field.setValue(formDetails.getAddress());
                         field.setReadOnly(true);
                         break;
                     case "City":
-                        field.setValue(formFields.getCity());
+                        field.setValue(formDetails.getCity());
                         field.setReadOnly(true);
                         break;
                     case "email":
-                        field.setValue(formFields.getEmail());
+                        field.setValue(formDetails.getEmail());
                         field.setReadOnly(true);
                         break;
                     case "StateProvince":
-                        field.setValue(formFields.getState());
+                        field.setValue(formDetails.getState());
                         field.setReadOnly(true);
                         break;
                 }
             }
         }
 
-        document.save(new File(RESULT_FOLDER, "Result.pdf"));
+        document.save(new File("src\\main\\resources", "Result.pdf"));
         document.close();
-        return formFields;
+        return formDetails;
 
     }
+
 }

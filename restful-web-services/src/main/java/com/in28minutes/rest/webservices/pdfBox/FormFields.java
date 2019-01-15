@@ -26,7 +26,7 @@ public class FormFields {
         this.state = state;
     }
 
-    public FormFields() {
+    public FormFields(){
 
     }
 
